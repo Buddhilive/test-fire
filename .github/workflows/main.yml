@@ -3,6 +3,8 @@ on:
   push:
     branches:
     - master
+    tags:
+      - release-production-*
 jobs:
   main:
     name: Build and Deploy
@@ -11,11 +13,11 @@ jobs:
     - name: Checkout the repository
         uses: actions/checkout@master
       
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_PROJECT: buddhi-crm
-          TARGET_BRANCH: master
+    - name: Deploy to Firebase
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only hosting
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        FIREBASE_PROJECT: buddhi-crm
+        TARGET_BRANCH: master
